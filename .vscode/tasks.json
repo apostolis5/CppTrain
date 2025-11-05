@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: Configure (build/)",
+      "type": "shell",
+      "command": "cmake -S . -B build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake: Build ex_08_01_exe",
+      "type": "shell",
+      "command": "cmake --build build --target ex_08_01_exe -j",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run ex_08_01_exe",
+      "type": "shell",
+      "command": "${workspaceFolder}/build/src/examples/08_classes/01_bank/ex_08_01_exe",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
