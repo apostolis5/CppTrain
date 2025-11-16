@@ -9,19 +9,16 @@
       "problemMatcher": []
     },
     {
-      "label": "CMake: Build ex_08_01_exe",
+      "label": "CMake: Build banking_system",
       "type": "shell",
-      "command": "cmake --build build --target ex_08_01_exe -j",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
+      "command": "cmake --build build --target banking_system -j",
+      "group": "build",
       "problemMatcher": []
     },
     {
-      "label": "Run ex_08_01_exe",
+      "label": "Run banking_system",
       "type": "shell",
-      "command": "${workspaceFolder}/build/src/examples/08_classes/01_bank/ex_08_01_exe",
+      "command": "${workspaceFolder}/build/src/banking_system",
       "presentation": {
         "echo": true,
         "reveal": "always",
@@ -29,6 +26,26 @@
         "panel": "shared"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Build and Run banking_system",
+      "type": "shell",
+      "dependsOn": [
+        "CMake: Build banking_system",
+        "Run banking_system"
+      ],
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
     }
   ]
 }
