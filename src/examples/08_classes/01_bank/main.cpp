@@ -13,7 +13,7 @@ int main()
     BankAccount default_account;
     cout << "Default Account Balance: " << default_account.get_balance() << endl;
 
-    BankAccount account(4270);
+    BankAccount account(3875);
     cout << "Account Balance: " << account.get_balance() << endl;
 
 
