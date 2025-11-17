@@ -17,4 +17,8 @@ public:
     ATM(BankAccount& acc) : account(&acc) {}
     
     void display_balance();
+
+    void make_deposit();
+
+    void make_withdrawal();
 };

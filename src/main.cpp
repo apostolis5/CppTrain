@@ -26,6 +26,8 @@ cout << endl;
     account.withdraw(500);
     cout << "After withdraw , Account Balance: " << account.get_balance() << endl;
 
+
+
     ATM atmDefault;
     atmDefault.display_balance();
 
@@ -34,11 +36,14 @@ cout << endl;
 
     cout << endl;
 
-    BankAccount account2(10000);
+    BankAccount account2(9000);
     ATM atm2(account2);
-    account2.withdraw(1000);
+    atm2.make_deposit();
+    atm2.make_withdrawal(); 
     
     atm2.display_balance();
+    cout << "account2 balance -->  " << account2.get_balance() << endl;
+
 
     
 
