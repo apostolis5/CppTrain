@@ -45,7 +45,42 @@ cout << endl;
     cout << "account2 balance -->  " << account2.get_balance() << endl;
 
 
+    cout << endl;
+    cout << endl;
     
+    // Create a BankAccount with an initial balance of 5000 and connect it to an ATM frontEnd
+    cout << " ********* Mis8odosia Account *******   " << endl; 
+    BankAccount Mis8odosia(3875);
+    // Connect Account to ATM
+    ATM EurobankATM(Mis8odosia);
+    // Run an interactive ATM session
+    run_atm_session(EurobankATM);
+    cout << endl;
+    EurobankATM.display_balance();  
+
+    cout << endl;
+    cout << endl;
+
+    cout << " ********* Apotamieutikos Account *******   " << endl; 
+    BankAccount Apotamieutikos(36);
+    EurobankATM = ATM(Apotamieutikos); 
+    // Run an interactive ATM session
+    run_atm_session(EurobankATM);
+    cout << endl;
+    EurobankATM.display_balance();  
+
+    cout << endl;
+    cout << endl;
+    
+    // load any of the trwo accounts and perform atm actions
+    EurobankATM = ATM(Mis8odosia); 
+    cout << "Mis8odosia balance -->  " << endl; 
+    EurobankATM.display_balance();   
+    
+    EurobankATM = ATM(Apotamieutikos); 
+    cout << "Apotamieutikos balance -->  " << endl; 
+    EurobankATM.display_balance();  
+
 
 
 cout << endl;
