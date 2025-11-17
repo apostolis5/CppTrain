@@ -1,5 +1,6 @@
 #include <iostream>
 #include "bank_account.h"
+#include "atm.h"
 #include <string>
 
 using namespace std;
@@ -25,7 +26,21 @@ cout << endl;
     account.withdraw(500);
     cout << "After withdraw , Account Balance: " << account.get_balance() << endl;
 
+    ATM atmDefault;
+    atmDefault.display_balance();
 
+    ATM atm1(account);    
+    atm1.display_balance();
+
+    cout << endl;
+
+    BankAccount account2(10000);
+    ATM atm2(account2);
+    account2.withdraw(1000);
+    
+    atm2.display_balance();
+
+    
 
 
 cout << endl;
