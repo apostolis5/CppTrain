@@ -1,4 +1,4 @@
-//checking_account.h
+//INHERITANCE from BankAccount base class
 #include "bank_account.h"
 
 #ifndef CHECKING_ACCOUNT_H
@@ -7,9 +7,12 @@
 class CheckingAccount : public BankAccount
 {
 public:
-   CheckingAccount(){}//default constructor
+   //default constructor
+   CheckingAccount() { 
+      cout << "CheckingAccount Default Constructor called"  << endl;
+   }
+   
    CheckingAccount(int b) : BankAccount(b){}
-   int get_balance() const {return BankAccount::get_balance();}
 };
 
 #endif

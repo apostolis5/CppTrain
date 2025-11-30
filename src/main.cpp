@@ -1,5 +1,6 @@
 #include <iostream>
 #include "bank_account.h"
+#include "checking_account.h"
 #include "atm.h"
 #include <string>
 
@@ -27,6 +28,10 @@ cout << endl;
     cout << "After withdraw , Account Balance: " << account.get_balance() << endl;
 
 
+    cout << endl;
+    cout << endl;
+    cout << "       ENCAPSULATION     " << endl;
+    cout << "--------------------------------" << endl;
 
     ATM atmDefault;
     atmDefault.display_balance();
@@ -80,6 +85,19 @@ cout << endl;
     EurobankATM = ATM(Apotamieutikos); 
     cout << "Apotamieutikos balance -->  " ; 
     EurobankATM.display_balance();  
+
+
+    cout << endl;
+    cout << endl;
+    cout << "       INHERITANCE     " << endl;
+    cout << "--------------------------------" << endl;
+
+
+    CheckingAccount check1;
+    // we can use get_balance() method inherited from BankAccount , even though we did not redefine it in CheckingAccount
+    // we can use get_balance() method because virtual (if not virtual we cannot use it)
+    // also note that the Default constructor of BankAccount is called first, then the one of CheckingAccount (first base then derived) 
+    cout << "Default CheckingAccount Balance: " << check1.get_balance() << endl; 
 
 
 

@@ -1,4 +1,4 @@
-//atm.h
+//  ENCAPSULATION of BankAccount within ATM
 #include<iostream>
 #include<memory>
 #include<vector>

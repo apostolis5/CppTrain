@@ -20,7 +20,7 @@ public:
 
     virtual int get_balance() const;
 
-    void deposit(int amount);
+    virtual void deposit(int amount);
     
     virtual void withdraw(int amount);
 
