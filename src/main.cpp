@@ -99,7 +99,18 @@ cout << endl;
     // also note that the Default constructor of BankAccount is called first, then the one of CheckingAccount (first base then derived) 
     cout << "Default CheckingAccount Balance: " << check1.get_balance() << endl; 
 
+    check1.deposit(500);
+    cout << "Default CheckingAccount Balance: " << check1.get_balance() << endl; 
 
+    cout << endl;
+    cout << endl;
+    // load CheckingAccount into ATM and perform atm actions to account check1
+    EurobankATM = ATM(check1);
+    EurobankATM.display_balance();
+    EurobankATM.make_deposit();
+    EurobankATM.display_balance();
+    run_atm_session(EurobankATM);
+    EurobankATM.display_balance();
 
 cout << endl;
 cout << endl;
