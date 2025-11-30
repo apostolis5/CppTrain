@@ -74,11 +74,11 @@ cout << endl;
     
     // load any of the trwo accounts and perform atm actions
     EurobankATM = ATM(Mis8odosia); 
-    cout << "Mis8odosia balance -->  " << endl; 
+    cout << "Mis8odosia balance -->  " ; 
     EurobankATM.display_balance();   
     
     EurobankATM = ATM(Apotamieutikos); 
-    cout << "Apotamieutikos balance -->  " << endl; 
+    cout << "Apotamieutikos balance -->  " ; 
     EurobankATM.display_balance();  
 
 
