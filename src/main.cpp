@@ -110,7 +110,7 @@ cout << endl;
     EurobankATM.make_deposit();
     EurobankATM.display_balance();
     run_atm_session(EurobankATM);
-    EurobankATM.display_balance();
+    //EurobankATM.display_balance();
 
 cout << endl;
 cout << endl;

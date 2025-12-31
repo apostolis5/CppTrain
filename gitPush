@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# gitPush - small helper to add, commit and push in one command
+# Usage: ./gitPush "your commit message"
+
+if [ $# -lt 1 ]; then
+  echo "Usage: gitPush \"commit message\""
+  exit 1
+fi
+
+commit_msg="$*"
+
+# Ensure we're inside a git repo
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: not inside a git repository"
+  exit 1
+fi
+
+# Stage changes
+echo "Staging changes..."
+git add .
+
+# Commit (if there is nothing to commit, git commit exits non-zero)
+echo "Committing with message: $commit_msg"
+if git commit -m "$commit_msg"; then
+  echo "Commit created."
+else
+  echo "No changes to commit or commit failed; continuing to push if branch exists."
+fi
+
+# Determine current branch and remote
+branch=$(git rev-parse --abbrev-ref HEAD)
+remote=$(git config --get branch."$branch".remote || true)
+if [ -z "$remote" ]; then
+  remote="origin"
+fi
+
+# Push
+echo "Pushing to ${remote}/${branch}..."
+if git push "$remote" "$branch"; then
+  echo "Push successful. ✅"
+  exit 0
+else
+  echo "Push failed. Check remote, branch and authentication. ⚠️"
+  exit 1
+fi
