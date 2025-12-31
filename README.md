@@ -5,3 +5,5 @@ Commit changes to github repo :
 git add .
 git commit -m "Your commit message"
 git push
+
+or simply just run! :   ./gitPush " your commit comment " 
