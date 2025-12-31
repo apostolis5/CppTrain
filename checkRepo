@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Simple checkRepo - show git pull, current branch and git status (raw outputs)
+# Usage: ./checkRepo
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "Error: not inside a git repository"
+  exit 1
+fi
+
+# Run git pull (show output)
+echo "ubuntu@$(hostname):$(pwd)$ git pull"
+git pull || true
+
+echo ""
+# Show branches (raw)
+echo "ubuntu@$(hostname):$(pwd)$ git branch"
+git branch
+
+echo ""
+# Show git status (raw)
+echo "ubuntu@$(hostname):$(pwd)$ git status"
+git status
