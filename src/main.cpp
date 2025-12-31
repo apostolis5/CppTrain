@@ -51,7 +51,6 @@ cout << endl;
 
 
     cout << endl;
-    cout << endl;
     
     // Create a BankAccount with an initial balance of 5000 and connect it to an ATM frontEnd
     cout << " ********* Mis8odosia Account *******   " << endl; 
