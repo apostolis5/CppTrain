@@ -62,7 +62,7 @@ cout << endl;
     cout << endl;
     EurobankATM.display_balance();  
 
-    cout << endl;
+    //cout << endl;
     cout << endl;
 
     cout << " ********* Apotamieutikos Account *******   " << endl; 
