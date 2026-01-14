@@ -27,8 +27,7 @@ cout << endl << endl << endl;
     cout << "After withdraw , Account Balance: " << account.get_balance() << endl;
 
 
-    cout << endl;
-    cout << endl;
+    cout << endl << endl;
     cout << "       ENCAPSULATION     " << endl;
     cout << "--------------------------------" << endl;
 
@@ -72,9 +71,8 @@ cout << endl << endl << endl;
     cout << endl;
     EurobankATM.display_balance();  
 
-    cout << endl;
-    cout << endl;
-    
+    cout << endl << endl;
+
     // load any of the trwo accounts and perform atm actions
     EurobankATM = ATM(Mis8odosia); 
     cout << "Mis8odosia balance -->  " ; 
@@ -84,9 +82,7 @@ cout << endl << endl << endl;
     cout << "Apotamieutikos balance -->  " ; 
     EurobankATM.display_balance();  
 
-
-    cout << endl;
-    cout << endl;
+    cout << endl << endl;
     cout << "       INHERITANCE     " << endl;
     cout << "--------------------------------" << endl;
 
@@ -99,9 +95,9 @@ cout << endl << endl << endl;
 
     check1.deposit(500);
     cout << "Default CheckingAccount Balance: " << check1.get_balance() << endl; 
-
-    cout << endl;
-    cout << endl;
+    
+    cout << endl << endl;
+    
     // load CheckingAccount into ATM and perform atm actions to account check1
     EurobankATM = ATM(check1);
     EurobankATM.display_balance();
