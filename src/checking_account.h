@@ -1,18 +1,16 @@
-//INHERITANCE from BankAccount base class
+#pragma once
 #include "bank_account.h"
-
-#ifndef CHECKING_ACCOUNT_H
-#define CHECKING_ACCOUNT_H
+#include <iostream>
+using namespace std;
 
 class CheckingAccount : public BankAccount
 {
 public:
-   //default constructor
-   CheckingAccount() { 
-      cout << "CheckingAccount Default Constructor called"  << endl;
-   }
-   
-   CheckingAccount(int b) : BankAccount(b){}
-};
+    CheckingAccount() : BankAccount() 
+    {
+        cout << "CheckingAccount Default Constructor called"  << endl;
+    }
 
-#endif
+    CheckingAccount(int balance) : BankAccount(balance) {}
+
+};

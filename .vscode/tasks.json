@@ -2,49 +2,35 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "CMake: Configure (build/)",
+      "label": "Configure",
       "type": "shell",
       "command": "cmake -S . -B build",
       "group": "build",
       "problemMatcher": []
     },
     {
-      "label": "CMake: Build banking_system",
+      "label": "Build",
       "type": "shell",
       "command": "cmake --build build --target banking_system -j",
       "group": "build",
-      "problemMatcher": []
+      "problemMatcher": [],
+      "dependsOn": "Configure"
     },
     {
-      "label": "Run banking_system",
+      "label": "Run",
       "type": "shell",
       "command": "${workspaceFolder}/build/src/banking_system",
       "presentation": {
         "echo": true,
         "reveal": "always",
-        "focus": false,
+        "focus": true,
         "panel": "shared"
       },
-      "problemMatcher": []
-    },
-    {
-      "label": "Build and Run banking_system",
-      "type": "shell",
-      "dependsOn": [
-        "CMake: Build banking_system",
-        "Run banking_system"
-      ],
-      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "dependsOn": "Build",
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "problemMatcher": [],
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
       }
     }
   ]

@@ -1,23 +1,19 @@
-//customer.h
+#pragma once
 #include "bank_account.h"
 #include "checking_account.h"
 #include "savings_account.h"
-#include<memory>
-#include<vector>
-
-#ifndef CUSTOMER_H
-#define CUSTOMER_H
+#include <vector>
+#include <memory>
+#include <cstdlib> // For rand()
 
 class Customer
 {
 public:
     Customer();
     Customer(int checking_balance, int savings_balance);
-    std::unique_ptr<BankAccount>& get_account(int index){return accounts[index];}
+
+    BankAccount* get_account(int index) { return accounts[index].get(); }
 
 private:
     std::vector<std::unique_ptr<BankAccount>> accounts;
 };
-
-
-#endif

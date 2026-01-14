@@ -1,6 +1,6 @@
 //atm.cpp
 #include "atm.h"
-using std::cin; using std::cout; using std::unique_ptr;
+using std::cin; using std::cout; using std::endl; using std::unique_ptr;
 
 
 
@@ -65,4 +65,3 @@ void run_atm_session(ATM& atm)
         }
     } while (option != 4);
 }
-
