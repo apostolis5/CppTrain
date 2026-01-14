@@ -8,8 +8,7 @@ using namespace std;
 
 
 int main() {
-cout << endl;
-cout << endl;
+cout << endl << endl << endl;
 
     
     string s1 = "Hello, World!"; 
@@ -110,9 +109,8 @@ cout << endl;
     EurobankATM.display_balance();
     run_atm_session(EurobankATM);
     EurobankATM.display_balance();
-    EurobankATM.display_balance();
 
-cout << endl;
-cout << endl;
+
+cout << endl << endl << endl;
 return 0;
 }
