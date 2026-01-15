@@ -1,6 +1,6 @@
 //atm.cpp
 #include "atm.h"
-using std::cin; using std::cout; using std::endl; using std::unique_ptr;
+using namespace std;
 
 
 

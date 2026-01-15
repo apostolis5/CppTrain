@@ -3,7 +3,7 @@
 #include<memory>
 #include<vector>
 #include "bank_account.h"
-using std::cout; using std::cin; using std::unique_ptr; using std::vector;
+using namespace std;
 
 
 class ATM
@@ -27,4 +27,3 @@ public:
 void display_atm_menu();
 
 void run_atm_session(ATM& atm);
-

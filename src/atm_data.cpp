@@ -1,6 +1,6 @@
 #include "atm_data.h"
 
-using std::ofstream; using std::ifstream;
+using namespace std;
 
 void ATMData::save_customers(std::vector<Customer>& customers)
 {
