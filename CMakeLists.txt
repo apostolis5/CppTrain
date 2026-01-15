@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.8)
 
 project("BankingSystem")
 include_directories(inc)
@@ -19,7 +19,28 @@ HEADER_DIRECTORIES(header_list)
 
 include_directories(${header_list})
 
-ADD_SUBDIRECTORY(src)
+# Create a library for the core logic so it can be linked by main and tests
+add_library(banking_core "src/bank_account.cpp"
+                         "src/customer.cpp" "src/transaction.cpp" "src/savings_account.cpp"
+                         "src/checking_account.cpp" "src/atm_data.cpp")
 
+# Main executable
+add_executable(banking_system "src/main.cpp")
+target_link_libraries(banking_system PRIVATE banking_core)
 
+add_executable(banking_tests "testing/main_test.cpp"
+                             "testing/account_test.cpp"
+                             "testing/atm_test.cpp"
+                             "testing/inheritance_test.cpp"
+                             "testing/vector_test.cpp")
+target_link_libraries(banking_tests PRIVATE banking_core)
 
+# Register with CTest
+add_test(NAME banking_tests COMMAND banking_tests)
+
+# Create a custom target that always runs the tests
+add_custom_target(run_tests COMMAND $<TARGET_FILE:banking_tests>)
+add_dependencies(run_tests banking_tests)
+
+# Ensure tests are built (and run) when building the main system
+add_dependencies(banking_system run_tests)
