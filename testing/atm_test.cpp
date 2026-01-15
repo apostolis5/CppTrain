@@ -1,6 +1,6 @@
 #include "catch.hpp"
 #include "bank_account.h"
-#include "atm.h"
+#include "atm.cpp"
 #include <sstream>
 #include <iostream>
 
