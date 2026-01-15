@@ -14,10 +14,15 @@ void BankAccount::deposit(int amount)
     }
 }
 
+#include <stdexcept>
+
 void BankAccount::withdraw(int amount)
 {
-    if(amount > 0 && amount <= balance)
-    {
+    if (amount > balance) {
+        throw std::runtime_error("Withdrawal amount exceeds balance.");
+    }
+    
+    if (amount > 0) {
         balance -= amount;
     }
 }
