@@ -10,10 +10,13 @@ class ATM
 {
 private:
     BankAccount* account;
+    vector<BankAccount> accounts;
 public:
     ATM(BankAccount& acc) : account(&acc) {}
-    
+    ATM();
     void display_balance();
+    void add_account(const BankAccount& acc);
+    void display_accounts();
     void make_deposit();
     void make_withdrawal();
 };
@@ -22,6 +25,21 @@ public:
 void display_atm_menu();
 
 void run_atm_session(ATM& atm);
+
+ATM::ATM() { }
+
+void ATM::add_account(const BankAccount& acc)
+{
+    accounts.push_back(acc);
+}
+
+void ATM::display_accounts()
+{
+    for(size_t i = 0; i < accounts.size(); ++i)
+    {
+        cout << "Saved Account " << i << " Balance: " << accounts[i].get_balance() << endl;
+    }
+}
 
 void ATM::display_balance()
 {

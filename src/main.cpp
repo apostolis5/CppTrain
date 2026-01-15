@@ -103,6 +103,15 @@ cout << endl << endl << endl;
     run_atm_session(EurobankATM);
     EurobankATM.display_balance();
 
+    cout << endl << endl;
+    cout << "       VECTOR IN ATM     " << endl;
+    cout << "--------------------------------" << endl;
+
+    ATM AlphaBankATM;
+    AlphaBankATM.add_account(account);      // Save first account
+    AlphaBankATM.add_account(Mis8odosia);   // Save second account
+    cout << "Successfully saved 2 accounts into the ATM's internal vector." << endl;
+    AlphaBankATM.display_accounts();
 
 cout << endl << endl << endl;
 return 0;
