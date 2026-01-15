@@ -31,9 +31,6 @@ cout << endl << endl << endl;
     cout << "       ENCAPSULATION     " << endl;
     cout << "--------------------------------" << endl;
 
-    ATM atmDefault;
-    atmDefault.display_balance();
-
     ATM atm1(account);    
     atm1.display_balance();
 
