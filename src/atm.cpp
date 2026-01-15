@@ -7,8 +7,7 @@
 using namespace std;
 
 
-class ATM
-{
+class ATM {
 private:
     BankAccount* account;
     vector<BankAccount> accounts;
@@ -29,27 +28,22 @@ void run_atm_session(ATM& atm);
 
 inline ATM::ATM() { }
 
-inline void ATM::add_account(const BankAccount& acc)
-{
+inline void ATM::add_account(const BankAccount& acc) {
     accounts.push_back(acc);
 }
 
-inline void ATM::display_accounts()
-{
-    for(size_t i = 0; i < accounts.size(); ++i)
-    {
+inline void ATM::display_accounts() {
+    for(size_t i = 0; i < accounts.size(); ++i) {
         cout << "Saved Account " << i << " Balance: " << accounts[i].get_balance() << endl;
     }
 }
 
-inline void ATM::display_balance()
-{
+inline void ATM::display_balance() {
     if (account)
         cout<<"Current Account of ATM has balance --> "<< account->get_balance() <<"\n";
 }
 
-inline void ATM::make_deposit() 
-{
+inline void ATM::make_deposit() {
     if (!account) return;
     int amount = 0;
     cout << "Enter amount to deposit: ";
@@ -58,8 +52,7 @@ inline void ATM::make_deposit()
     account->deposit(amount);
 }
 
-inline void ATM::make_withdrawal() 
-{
+inline void ATM::make_withdrawal() {
     if (!account) return;
     int amount = 0;
     cout << "Enter amount to withdraw: ";
@@ -69,8 +62,7 @@ inline void ATM::make_withdrawal()
 }
 
 // free functions 
-inline void display_atm_menu()
-{
+inline void display_atm_menu() {
     cout << "--------ATM MENU-----------\n";
     cout << "1. Display Balance\n";
     cout << "2. Deposit\n";
@@ -78,8 +70,7 @@ inline void display_atm_menu()
     cout << "4. Exit\n";
 }
 
-inline void run_atm_session(ATM& atm)
-{
+inline void run_atm_session(ATM& atm) {
     int option = 0;
     do {
         cout << endl;
