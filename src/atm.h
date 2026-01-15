@@ -1,4 +1,5 @@
 //  ENCAPSULATION of BankAccount within ATM
+#pragma once
 #include<iostream>
 #include<memory>
 #include<vector>
@@ -26,14 +27,14 @@ void display_atm_menu();
 
 void run_atm_session(ATM& atm);
 
-ATM::ATM() { }
+inline ATM::ATM() { }
 
-void ATM::add_account(const BankAccount& acc)
+inline void ATM::add_account(const BankAccount& acc)
 {
     accounts.push_back(acc);
 }
 
-void ATM::display_accounts()
+inline void ATM::display_accounts()
 {
     for(size_t i = 0; i < accounts.size(); ++i)
     {
@@ -41,13 +42,13 @@ void ATM::display_accounts()
     }
 }
 
-void ATM::display_balance()
+inline void ATM::display_balance()
 {
     if (account)
         cout<<"Current Account of ATM has balance --> "<< account->get_balance() <<"\n";
 }
 
-void ATM::make_deposit() 
+inline void ATM::make_deposit() 
 {
     if (!account) return;
     int amount = 0;
@@ -57,7 +58,7 @@ void ATM::make_deposit()
     account->deposit(amount);
 }
 
-void ATM::make_withdrawal() 
+inline void ATM::make_withdrawal() 
 {
     if (!account) return;
     int amount = 0;
@@ -68,7 +69,7 @@ void ATM::make_withdrawal()
 }
 
 // free functions 
-void display_atm_menu()
+inline void display_atm_menu()
 {
     cout << "--------ATM MENU-----------\n";
     cout << "1. Display Balance\n";
@@ -77,7 +78,7 @@ void display_atm_menu()
     cout << "4. Exit\n";
 }
 
-void run_atm_session(ATM& atm)
+inline void run_atm_session(ATM& atm)
 {
     int option = 0;
     do {

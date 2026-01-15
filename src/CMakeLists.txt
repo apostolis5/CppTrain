@@ -7,7 +7,11 @@ add_library(banking_core "bank_account.cpp"
 add_executable(banking_system "main.cpp")
 target_link_libraries(banking_system PRIVATE banking_core)
 
-add_executable(banking_tests "banking_test.cpp")
+add_executable(banking_tests "main_test.cpp"
+                             "account_test.cpp"
+                             "atm_test.cpp"
+                             "inheritance_test.cpp"
+                             "vector_test.cpp")
 target_link_libraries(banking_tests PRIVATE banking_core)
 
 # Register with CTest
