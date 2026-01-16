@@ -11,7 +11,9 @@ using namespace std;
 class ATM {
 private:
     BankAccount* account;
-    vector<BankAccount> accounts;
+    
+ // database of bank accounts -> Vector Data Structure
+    vector<BankAccount>  bank_accounts_database; 
 public:
     ATM(BankAccount& acc) : account(&acc) {}
     ATM();
@@ -30,12 +32,12 @@ void run_atm_session(ATM& atm);
 inline ATM::ATM() { }
 
 inline void ATM::add_account(const BankAccount& acc) {
-    accounts.push_back(acc);
+    bank_accounts_database.push_back(acc);
 }
 
 inline void ATM::display_accounts() {
-    for(size_t i = 0; i < accounts.size(); ++i) {
-        cout << "Saved Account " << i << " Balance: " << accounts[i].get_balance() << endl;
+    for(size_t i = 0; i < bank_accounts_database.size(); ++i) {
+        cout << "Saved Account " << i << " Balance: " << bank_accounts_database[i].get_balance() << endl;
     }
 }
 
