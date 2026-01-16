@@ -19,7 +19,7 @@
     {
       "label": "Run",
       "type": "shell",
-      "command": "${workspaceFolder}/build/src/banking_system",
+      "command": "${workspaceFolder}/build/banking_system",
       "presentation": {
         "echo": true,
         "reveal": "always",
