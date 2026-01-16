@@ -11,35 +11,51 @@ using namespace std;
 
 TEST_CASE("ATM and BankInternalSystem integration scenario", "[ATM_Integration]") {
     BankInternalSystem internal_system;
-    ATM my_atm(internal_system);
-    // Scenario: BankInternalSystem creates an account, then ATM operates on it.
+    ATM EuroBankATM(internal_system);
+    // Scenario: BankInternalSystem creates two accounts, then a user by EuroBankATM operates on them.
 
-    // 1. BankInternalSystem creates a new account
-    string creation_result = internal_system.create_account("1001", "Customer A", 500);
-    REQUIRE(creation_result == "200 OK");
+    // 1. BankInternalSystem creates two new accounts
+    string account1 = internal_system.create_account("1001", "Customer A", 500);
+    REQUIRE(account1 == "200 OK");
     REQUIRE(internal_system.get_account_for_customer("1001") != nullptr);
     REQUIRE(internal_system.get_balance_for_customer("1001") == 500);
 
-    // 2. ATM displays initial balance
-    string display_initial = my_atm.display_balance("1001");
+    string account2 = internal_system.create_account("1002", "Customer B", 200);
+    REQUIRE(internal_system.get_balance_for_customer("1002") == 200);
+
+
+    // 2. ATM displays account1 balance
+    string display_initial = EuroBankATM.display_balance("1001");
     REQUIRE(display_initial == "500"); 
 
-    // 3. ATM deposits money
-    string deposit_message = my_atm.make_deposit("1001", 100);
+    // 3. ATM deposits money for account1
+    string deposit_message = EuroBankATM.make_deposit("1001", 100);
     REQUIRE(deposit_message == "200 OK"); 
     // We should verify the internal state of the BankInternalSystem to ensure the deposit actually happened.
-    REQUIRE(internal_system.get_balance_for_customer("1001") == 600); 
-
-    // 4. ATM displays updated balance
-    string display_after_deposit = my_atm.display_balance("1001");
+    REQUIRE(internal_system.get_balance_for_customer("1001") == 600);
+    // 4. ATM displays updated balance account1
+    string display_after_deposit = EuroBankATM.display_balance("1001");
     REQUIRE(display_after_deposit == "600");
 
-    // 5. ATM withdraws money
-    string withdrawal_message = my_atm.make_withdrawal("1001", 150);
+    // 5. ATM withdraws money account1
+    string withdrawal_message = EuroBankATM.make_withdrawal("1001", 150);
     REQUIRE(withdrawal_message == "200 OK"); 
-    REQUIRE(internal_system.get_balance_for_customer("1001") == 450); 
-
-    // 6. ATM displays final balance
-    string display_final = my_atm.display_balance("1001");
+    
+    // 6. ATM displays final balance account1
+    string display_final = EuroBankATM.display_balance("1001");
     REQUIRE(display_final == "450"); 
+
+
+    // Atm preforms operations on account2 as well
+    REQUIRE(EuroBankATM.display_balance("1002") == "200");
+
+    string deposit_message_acc2 = EuroBankATM.make_deposit("1002", 300); 
+    REQUIRE(internal_system.get_balance_for_customer("1002") == 500);
+    REQUIRE(EuroBankATM.display_balance("1002") == "500");       
+
+    string withdrawal_message_acc2 = EuroBankATM.make_withdrawal("1002", 100);
+    REQUIRE(internal_system.get_balance_for_customer("1002") == 400);
+    // 11. ATM displays final balance account2
+    REQUIRE(EuroBankATM.display_balance("1002") == "400");  
+
 }
