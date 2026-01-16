@@ -10,12 +10,12 @@ using namespace std;
 
 class ATM {
 private:
-    BankAccount* account;
+    BankAccount* bank_account;
     
  // database of bank accounts -> Vector Data Structure
     vector<BankAccount>  bank_accounts_database; 
 public:
-    ATM(BankAccount& acc) : account(&acc) {}
+    ATM(BankAccount& acc) : bank_account(&acc) {}
     ATM();
     void display_balance();
     void add_account(const BankAccount& acc);
@@ -42,26 +42,26 @@ inline void ATM::display_accounts() {
 }
 
 inline void ATM::display_balance() {
-    if (account)
-        cout<<"Current Account of ATM has balance --> "<< account->get_balance() <<"\n";
+    if (bank_account)
+        cout<<"Current Account of ATM has balance --> "<< bank_account->get_balance() <<"\n";
 }
 
 inline void ATM::make_deposit() {
-    if (!account) return;
+    if (!bank_account) return;
     int amount = 0;
     cout << "Enter amount to deposit: ";
     cin >> amount;
 
-    account->deposit(amount);
+    bank_account->deposit(amount);
 }
 
 inline void ATM::make_withdrawal() {
-    if (!account) return;
+    if (!bank_account) return;
     int amount = 0;
     cout << "Enter amount to withdraw: ";
     cin >> amount;
-    
-    account->withdraw(amount);
+
+    bank_account->withdraw(amount);
 }
 
 // free functions 
