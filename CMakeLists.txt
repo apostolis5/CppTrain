@@ -12,7 +12,7 @@ add_library(banking_core "src/bank_account.cpp"
 
 # Main executable
 add_executable(banking_system "src/main.cpp"
-                             "testing/account_test.cpp"
-                             "testing/atm_test.cpp"
+                             "testing/BankAccount_test.cpp"
+                             "testing/Atm_test.cpp"
                              "testing/vector_test.cpp")
 target_link_libraries(banking_system PRIVATE banking_core)
