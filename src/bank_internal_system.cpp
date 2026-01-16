@@ -64,12 +64,12 @@ string BankInternalSystem::withdraw_from_account(const string& accountId, int am
     }
 }
 
-optional<int> BankInternalSystem::get_balance_for_customer(const string& accountId) {
+int BankInternalSystem::get_balance_for_customer(const string& accountId) {
     BankAccount* account = find_account_by_id_internal(accountId);
     if (account) {
         return account->get_balance();
     }
-    return nullopt; // Indicate account not found
+    return -1; // Indicate account not found
 }
 
 

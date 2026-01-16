@@ -24,5 +24,5 @@ public:
     BankAccount* get_account_for_customer(const string& accountId); 
     string deposit_to_account(const string& accountId, int amount);
     string withdraw_from_account(const string& accountId, int amount);
-    optional<int> get_balance_for_customer(const string& accountId); // Changed return type
+    int get_balance_for_customer(const string& accountId); // Changed return type
 };

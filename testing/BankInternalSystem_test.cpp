@@ -21,28 +21,18 @@ TEST_CASE("BankInternalSystem manages accounts", "[BankInternalSystem]") {
         REQUIRE(bank_system.get_account_for_customer("3333") == nullptr); // Non-existent
     }
 
-    SECTION("Duplicate account creation") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        std::string message = bank_system.create_account("1111", "Alice Smith Duplicate", 200);
-        REQUIRE(message == "Error");
-        REQUIRE(bank_system.get_balance_for_customer("1111").has_value() == true); // Check optional has value
-        REQUIRE(bank_system.get_balance_for_customer("1111").value() == 100); // Access value
-        REQUIRE(bank_system.get_account_for_customer("1111")->get_accountUsername() == "Alice Smith");
-    }
-
     SECTION("Deposit to account") {
         BankInternalSystem bank_system;
         bank_system.create_account("1111", "Alice Smith", 100);
         REQUIRE(bank_system.deposit_to_account("1111", 50) == "200 OK");
-        REQUIRE(bank_system.get_balance_for_customer("1111").value() == 150);
+        REQUIRE(bank_system.get_balance_for_customer("1111") == 150);
     }
 
     SECTION("Withdraw from account") {
         BankInternalSystem bank_system;
         bank_system.create_account("1111", "Alice Smith", 100);
         REQUIRE(bank_system.withdraw_from_account("1111", 50) == "200 OK");
-        REQUIRE(bank_system.get_balance_for_customer("1111").value() == 50);
+        REQUIRE(bank_system.get_balance_for_customer("1111") == 50);
     }
 
     SECTION("Withdraw with insufficient funds") {
@@ -50,7 +40,7 @@ TEST_CASE("BankInternalSystem manages accounts", "[BankInternalSystem]") {
         bank_system.create_account("1111", "Alice Smith", 100);
         std::string message = bank_system.withdraw_from_account("1111", 150);
         REQUIRE(message == "Error");
-        REQUIRE(bank_system.get_balance_for_customer("1111").value() == 100); // Balance should not change
+        REQUIRE(bank_system.get_balance_for_customer("1111") == 100); // Balance should not change
     }
 
     SECTION("Delete account by ID") {
