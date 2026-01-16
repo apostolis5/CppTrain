@@ -8,10 +8,12 @@ include_directories(inc src headers)
 
 # Create a library for the core logic so it can be linked by main and tests
 add_library(banking_core "src/bank_account.cpp"
-                         )
+                         "src/bank_internal_system.cpp"
+                         "src/atm.cpp")
 
 # Main executable
 add_executable(banking_system "src/main.cpp"
                              "testing/BankAccount_test.cpp"
-                             "testing/Atm_test.cpp")
+                             "testing/Atm_test.cpp"
+                             "testing/BankInternalSystem_test.cpp")
 target_link_libraries(banking_system PRIVATE banking_core)
