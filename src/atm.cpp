@@ -1,5 +1,5 @@
 //ATM core business logic 
-#include "atm.h" // Include the new ATM header
+#include "atm.h" 
 #include <iostream>
 #include <optional> 
 #include <string> 
@@ -9,10 +9,10 @@ using namespace std;
 ATM::ATM(BankInternalSystem& system) : bank_system(system) {};
 
 string ATM::display_balance(const string& accountId) {
-    optional<int> balance = bank_system.get_balance_for_customer(accountId); // Use a distinct name
+    optional<int> balance = bank_system.get_balance_for_customer(accountId); 
     if (balance.has_value()) 
     
-    return to_string(balance.value()); // Just return the balance as a string
+    return to_string(balance.value()); 
 }
 
 string ATM::make_deposit(const string& accountId, int amount) {

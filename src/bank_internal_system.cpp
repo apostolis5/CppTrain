@@ -69,7 +69,7 @@ int BankInternalSystem::get_balance_for_customer(const string& accountId) {
     if (account) {
         return account->get_balance();
     }
-    return -1; // Indicate account not found
+    return -1; 
 }
 
 

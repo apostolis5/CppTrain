@@ -10,7 +10,7 @@ private:
 public:
     ATM(BankInternalSystem& system);
 
-    string display_balance(const string& accountId); // Changed return type to string
+    string display_balance(const string& accountId);
     string make_deposit(const string& accountId, int amount);
     string make_withdrawal(const string& accountId, int amount);
 };

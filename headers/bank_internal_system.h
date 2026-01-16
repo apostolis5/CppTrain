@@ -10,7 +10,7 @@ private:
     vector<BankAccount> all_bank_accounts;
 
     // Helper to find an account by ID
-    BankAccount* find_account_by_id_internal(const std::string& accountId);
+    BankAccount* find_account_by_id_internal(const string& accountId);
     
 public:
     BankInternalSystem() = default;
@@ -24,5 +24,5 @@ public:
     BankAccount* get_account_for_customer(const string& accountId); 
     string deposit_to_account(const string& accountId, int amount);
     string withdraw_from_account(const string& accountId, int amount);
-    int get_balance_for_customer(const string& accountId); // Changed return type
+    int get_balance_for_customer(const string& accountId); 
 };
