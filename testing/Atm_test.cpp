@@ -10,27 +10,9 @@ TEST_CASE("ATM Encapsulation and Interaction", "[atm]") {
     BankAccount account(9000);
     ATM atm(account);
 
-    SECTION("Deposit via ATM") {
-        // Simulate user input "500"
-        std::stringstream input("500");
-        std::streambuf* oldCin = std::cin.rdbuf(input.rdbuf());
-
-        atm.make_deposit();
-
-        std::cin.rdbuf(oldCin); // Restore cin
-
-        REQUIRE(account.get_balance() == 9500);
-    }
-
-    SECTION("Withdrawal via ATM") {
-        // Simulate user input "1000"
-        std::stringstream input("1000");
-        std::streambuf* oldCin = std::cin.rdbuf(input.rdbuf());
-
-        atm.make_withdrawal();
-
-        std::cin.rdbuf(oldCin); // Restore cin
-
-        REQUIRE(account.get_balance() == 8000);
-    }
+    atm.make_deposit(500);
+    REQUIRE(account.get_balance() == 9500);
+    
+    atm.make_withdrawal(1000);
+    REQUIRE(account.get_balance() == 8500);
 }
