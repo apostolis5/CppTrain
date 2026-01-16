@@ -18,20 +18,20 @@ BankAccount* BankInternalSystem::find_account_by_id_internal(const string& accou
 // Clerk functionalities
 string BankInternalSystem::create_account(const string& id, const string& username, int initial_balance) {
     if (find_account_by_id_internal(id) != nullptr) {
-        return "Error: Account with ID " + id + " already exists.";
+        return "Error";
     }
     all_bank_accounts.emplace_back(id, username, initial_balance);
-    return "Account " + id + " created successfully for " + username + ".";
+    return "200 OK";
 }
 
 string BankInternalSystem::delete_account_by_id(const string& accountId) {
     for (auto it = all_bank_accounts.begin(); it != all_bank_accounts.end(); ++it) {
         if (it->get_accountId() == accountId) {
             it = all_bank_accounts.erase(it);
-            return "Account " + accountId + " deleted successfully.";
+            return "200 OK";
         }
     }
-    return "Error: Account with ID " + accountId + " not found.";
+    return "Error";
 }
 
 // Customer-facing functionalities (delegated from ATM)
@@ -43,9 +43,9 @@ string BankInternalSystem::deposit_to_account(const string& accountId, int amoun
     BankAccount* account = find_account_by_id_internal(accountId);
     if (account) {
         account->deposit(amount);
-        return "Deposit of " + std::to_string(amount) + " to account " + accountId + " processed. New balance: " + std::to_string(account->get_balance()) + ".";
+        return "200 OK";
     } else {
-        return "Error: Account " + accountId + " not found for deposit.";
+        return "Error";
     }
 }
 
@@ -54,12 +54,12 @@ std::string BankInternalSystem::withdraw_from_account(const std::string& account
     if (account) {
         try {
             account->withdraw(amount);
-            return "Withdrawal of " + std::to_string(amount) + " from account " + accountId + " processed. New balance: " + std::to_string(account->get_balance()) + ".";
+            return "200 OK";
         } catch (const std::runtime_error& e) {
-            return "Withdrawal failed for account " + accountId + ": " + e.what();
+            return "Error";
         }
     } else {
-        return "Error: Account " + accountId + " not found for withdrawal.";
+        return "Error";
     }
 }
 

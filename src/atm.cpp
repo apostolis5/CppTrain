@@ -11,9 +11,9 @@ ATM::ATM(BankInternalSystem& system) : bank_system(system) {};
 string ATM::display_balance(const string& accountId) {
     optional<int> balance = bank_system.get_balance_for_customer(accountId);
     if (balance) {
-        return "Account " + accountId + " has balance --> " + std::to_string(balance.value());
+        return "200 OK";
     } else {
-        return "Error: Account " + accountId + " not found for balance inquiry.";
+        return "Error";
     }
 }
 
