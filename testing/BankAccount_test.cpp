@@ -2,7 +2,7 @@
 #include "bank_account.h"
 #include <stdexcept>
 #include <iostream>
-#include <string> // Required for std::string
+#include <string> 
 using namespace std;
 
 TEST_CASE("BankAccount operations", "[account]") {
