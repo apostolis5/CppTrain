@@ -5,7 +5,7 @@
 #include<memory>
 #include<vector>
 #include "bank_account.h"
-#include <string> // Required for std::string
+#include <string> 
 using namespace std; 
 
 class ATM {
@@ -17,26 +17,31 @@ public:
     void add_account(const BankAccount& acc);
     BankAccount* find_account(const string& accountId);
     void display_balance(const string& accountId);
-    void make_deposit(const string& accountId, double amount);
-    void make_withdrawal(const string& accountId, double amount);
+    void make_deposit(const string& accountId, int amount);
+    void make_withdrawal(const string& accountId, int amount);
     void display_all_balances();
 };
+
 
 inline void ATM::add_account(const BankAccount& acc) {
     bank_accounts_database.push_back(acc);
 }
 
+
 inline BankAccount* ATM::find_account(const string& accountId) {
-    for (auto& account : bank_accounts_database) {
-        if (account.get_accountId() == accountId) { // Renamed getter
+    for (BankAccount& account : bank_accounts_database) {
+        if (account.get_accountId() == accountId) { 
             return &account;
+
         }
     }
-    return nullptr; // Account not found
+    return nullptr; 
 }
+
 
 inline void ATM::display_balance(const string& accountId) {
     BankAccount* account = find_account(accountId);
+    
     if (account) {
         cout << "Account " << accountId << " has balance --> " << account->get_balance() << "\n";
     } else {
@@ -44,25 +49,32 @@ inline void ATM::display_balance(const string& accountId) {
     }
 }
 
-inline void ATM::make_deposit(const string& accountId, double amount) {
+
+inline void ATM::make_deposit(const string& accountId, int amount) {
     BankAccount* account = find_account(accountId);
-    if (account) {
-        account->deposit(static_cast<int>(amount)); // Cast to int
-        cout << "Deposited " << amount << " into account " << accountId << ". New balance: " << account->get_balance() << "\n";
+        if (account) {
+    account->deposit(amount);
+    
+    cout << "Deposited " << amount << " into account " << accountId << ". New balance: " << account->get_balance() << "\n";
     } else {
         cout << "Account " << accountId << " not found for deposit.\n";
     }
 }
 
-inline void ATM::make_withdrawal(const string& accountId, double amount) {
+
+
+inline void ATM::make_withdrawal(const string& accountId, int amount) {
     BankAccount* account = find_account(accountId);
-    if (account) {
-        account->withdraw(static_cast<int>(amount)); // Cast to int
-        cout << "Withdrew " << amount << " from account " << accountId << ". New balance: " << account->get_balance() << "\n";
+        if (account) {
+    account->withdraw(amount);
+
+    cout << "Withdrew " << amount << " from account " << accountId << ". New balance: " << account->get_balance() << "\n";
     } else {
         cout << "Account " << accountId << " not found for withdrawal.\n";
     }
 }
+
+
 
 inline void ATM::display_all_balances() {
     if (bank_accounts_database.empty()) {
@@ -70,9 +82,10 @@ inline void ATM::display_all_balances() {
         return;
     }
     cout << "\n--- All Account Balances ---\n";
-    for (const auto& account : bank_accounts_database) {
-        cout << "Account ID: " << account.get_accountId() // Renamed getter
-             << ", Username: " << account.get_accountUsername() // Renamed getter
+    
+    for (const BankAccount& account : bank_accounts_database) {
+        cout << "Account ID: " << account.get_accountId() 
+             << ", Username: " << account.get_accountUsername()
              << ", Balance: " << account.get_balance() << "\n";
     }
     cout << "----------------------------\n";

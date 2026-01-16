@@ -1,6 +1,6 @@
 //Bank Account core business logic 
 #include "bank_account.h"
-#include <stdexcept> // For std::runtime_error
+#include <stdexcept> 
 using namespace std;
 #include <string>
 
@@ -21,15 +21,14 @@ int BankAccount::get_balance() const {
     return balance;
 }
 
+
 void BankAccount::deposit(int amount) {
-    if(amount > 0) { balance += amount; }
+    if(amount > 0) { 
+        balance += amount; }
 }
 
 void BankAccount::withdraw(int amount) {
-    if (amount <= 0) {
-        // Optionally handle non-positive withdrawal attempts
-        return; 
-    }
+    if (amount <= 0) {return;}
     if (amount > balance) {
         throw std::runtime_error("Withdrawal amount exceeds balance.");
     }

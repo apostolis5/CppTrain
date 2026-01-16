@@ -8,13 +8,13 @@ using namespace std;
 TEST_CASE("BankAccount operations", "[account]") {
     BankAccount default_account("0000", "Default Account", 0);
     REQUIRE(default_account.get_balance() == 0);
-    REQUIRE(default_account.get_accountId() == "0000"); // Renamed getter
-    REQUIRE(default_account.get_accountUsername() == "Default Account"); // Renamed getter
+    REQUIRE(default_account.get_accountId() == "0000"); 
+    REQUIRE(default_account.get_accountUsername() == "Default Account");
 
     BankAccount account("1234", "Test Account", 4000);
     REQUIRE(account.get_balance() == 4000);
-    REQUIRE(account.get_accountId() == "1234"); // Renamed getter
-    REQUIRE(account.get_accountUsername() == "Test Account"); // Renamed getter
+    REQUIRE(account.get_accountId() == "1234");
+    REQUIRE(account.get_accountUsername() == "Test Account");
 
     account.deposit(300);
     REQUIRE(account.get_balance() == 4300);
@@ -25,8 +25,8 @@ TEST_CASE("BankAccount operations", "[account]") {
     NewAccount.deposit(300);
     NewAccount.withdraw(200);
     REQUIRE(NewAccount.get_balance() == 100);
-    REQUIRE(NewAccount.get_accountId() == "5678"); // Renamed getter
-    REQUIRE(NewAccount.get_accountUsername() == "Apostolis Account"); // Renamed getter
+    REQUIRE(NewAccount.get_accountId() == "5678");
+    REQUIRE(NewAccount.get_accountUsername() == "Apostolis Account");
 }
 
 TEST_CASE("Overdraft withdrawal throws an exception", "[account]") {
