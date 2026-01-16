@@ -1,20 +1,26 @@
 //bank_account.h
 #pragma once
 #include<iostream>
+#include<string.h> 
 using namespace std;
 
 class BankAccount
 {
 private:
+    string accountId;
+    string accountUsername;
     int balance;
 
 public:
-    // Default constructor initializes balance to 0
-    BankAccount() {balance = 0;};
-    // Constructor to initialize the balance
-    BankAccount(int initial_balance) : balance(initial_balance) {};
+    // Constructor to initialize all details of a bank account
+    BankAccount(string accountId, string accountUsername, int initial_balance);
 
-    virtual int get_balance() const;
-    virtual void deposit(int amount);
-    virtual void withdraw(int amount);
+    // Getter methods
+    string get_accountId() const;
+    string get_accountUsername() const;
+    int get_balance() const;
+
+    // Transaction methods
+    void deposit(int amount);
+    void withdraw(int amount);
 };

@@ -1,6 +1,21 @@
 //Bank Account core business logic 
 #include "bank_account.h"
-#include <stdexcept>
+#include <stdexcept> // For std::runtime_error
+using namespace std;
+#include <string>
+
+// Constructor definition with member initializer list
+BankAccount::BankAccount(string id, string username, int initial_balance) : 
+                        accountId(id), accountUsername(username), balance(initial_balance) {}
+
+// Getter definitions
+string BankAccount::get_accountId() const {
+    return accountId;
+}
+
+string BankAccount::get_accountUsername() const {
+    return accountUsername;
+}
 
 int BankAccount::get_balance() const {
     return balance;
@@ -11,9 +26,13 @@ void BankAccount::deposit(int amount) {
 }
 
 void BankAccount::withdraw(int amount) {
+    if (amount <= 0) {
+        // Optionally handle non-positive withdrawal attempts
+        return; 
+    }
     if (amount > balance) {
         throw std::runtime_error("Withdrawal amount exceeds balance.");
     }
     
-    if(amount > 0) { balance -= amount; }
+    balance -= amount;
 }
