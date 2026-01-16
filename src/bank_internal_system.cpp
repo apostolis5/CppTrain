@@ -3,6 +3,7 @@
 #include <sstream> 
 #include <string>
 #include <optional>
+#include <vector> 
 using namespace std;
 
 // Helper to find an account by ID internally
@@ -49,13 +50,13 @@ string BankInternalSystem::deposit_to_account(const string& accountId, int amoun
     }
 }
 
-std::string BankInternalSystem::withdraw_from_account(const std::string& accountId, int amount) {
+string BankInternalSystem::withdraw_from_account(const string& accountId, int amount) {
     BankAccount* account = find_account_by_id_internal(accountId);
     if (account) {
         try {
             account->withdraw(amount);
             return "200 OK";
-        } catch (const std::runtime_error& e) {
+        } catch (const runtime_error& e) {
             return "Error";
         }
     } else {
@@ -72,18 +73,3 @@ optional<int> BankInternalSystem::get_balance_for_customer(const string& account
 }
 
 
-string BankInternalSystem::display_all_accounts_details() const {
-    stringstream ss;
-    if (all_bank_accounts.empty()) {
-        ss << "No accounts in the bank's internal system.\n";
-        return ss.str();
-    }
-    ss << "\n--- Bank Internal System: All Accounts ---\\n";
-    for (const BankAccount& account : all_bank_accounts) {
-        ss << "Account ID: " << account.get_accountId() 
-             << ", Username: " << account.get_accountUsername()
-             << ", Balance: " << account.get_balance() << "\n";
-    }
-    ss << "------------------------------------------\n";
-    return ss.str();
-}

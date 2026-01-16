@@ -9,12 +9,10 @@ using namespace std;
 ATM::ATM(BankInternalSystem& system) : bank_system(system) {};
 
 string ATM::display_balance(const string& accountId) {
-    optional<int> balance = bank_system.get_balance_for_customer(accountId);
-    if (balance) {
-        return "200 OK";
-    } else {
-        return "Error";
-    }
+    optional<int> balance_opt = bank_system.get_balance_for_customer(accountId); // Use a distinct name
+    if (balance_opt.has_value()) 
+    
+    return to_string(balance_opt.value()); // Just return the balance as a string
 }
 
 string ATM::make_deposit(const string& accountId, int amount) {

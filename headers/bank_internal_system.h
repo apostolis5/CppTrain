@@ -25,5 +25,4 @@ public:
     string deposit_to_account(const string& accountId, int amount);
     string withdraw_from_account(const string& accountId, int amount);
     optional<int> get_balance_for_customer(const string& accountId); // Changed return type
-    string display_all_accounts_details() const; 
 };
