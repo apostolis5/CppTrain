@@ -20,19 +20,18 @@ int main(int argc, char* argv[]) {
 
     // Initialize bank system
     BankInternalSystem bankSystem;
-    ATM piraeusAtm(bankSystem);
+    ATM* piraeusAtm = new ATM(bankSystem);
+    //ATM piraeusAtm(bankSystem);
 
     BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
     BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
     BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
-    
+    // make accounts available both in the banking system and atm
     acc1->register_to_system(bankSystem);
     acc2->register_to_system(bankSystem);
     acc3->register_to_system(bankSystem);
 
-    cout << "Acc2 balance :" << acc2->get_balance() <<  endl;    
-    
-    cout << "Welcome to the Piraeus Bank ATM!\n";
+        cout << "Welcome to the Piraeus Bank ATM!\n";
 
     string selectedAccountId;
 
@@ -88,16 +87,16 @@ int main(int argc, char* argv[]) {
 
             switch (choice) {
                 case 1:
-                    response = piraeusAtm.display_balance(selectedAccountId);
-                    cout << "Current Balance: " << response << endl;
+                    response = piraeusAtm->display_balance(selectedAccountId);
+                    cout << "Current Balance: " << piraeusAtm->display_balance(selectedAccountId) << endl;
                     break;
                 case 2:
                     cout << "Enter amount to deposit: ";
                     cin >> amount;
-                    response = piraeusAtm.make_deposit(selectedAccountId, amount);
+                    response = piraeusAtm->make_deposit(selectedAccountId, amount);
                     if (response == "200 OK") {
                         cout << "Deposit successful." << endl;
-                        cout << "New Balance: " << piraeusAtm.display_balance(selectedAccountId) << endl;
+                        cout << "New Balance: " << piraeusAtm->display_balance(selectedAccountId) << endl;
                     } else {
                         cout << "Deposit failed: " << response << endl;
                     }
@@ -105,10 +104,10 @@ int main(int argc, char* argv[]) {
                 case 3:
                     cout << "Enter amount to withdraw: ";
                     cin >> amount;
-                    response = piraeusAtm.make_withdrawal(selectedAccountId, amount);
+                    response = piraeusAtm->make_withdrawal(selectedAccountId, amount);
                      if (response == "200 OK") {
                         cout << "Withdrawal successful." << endl;
-                        cout << "New Balance: " << piraeusAtm.display_balance(selectedAccountId) << endl;
+                        cout << "New Balance: " << piraeusAtm->display_balance(selectedAccountId) << endl;
                     } else {
                         cout << "Withdrawal failed: " << response << endl;
                     }
@@ -128,12 +127,20 @@ int main(int argc, char* argv[]) {
                     break;
             }
         }
-    }    
+    }  
+
+
+
+
+
+
+
 
     // Clean up dynamically allocated memory before exiting
     delete acc1;
     delete acc2;
     delete acc3;
-    cout << "Thank you for using the ATM Banking System. Goodbye!\n";
+    delete piraeusAtm;
+    cout << "\n\n\nThank you for using the ATM Banking System. Goodbye!\n\n\n";
     return 0;
 }
