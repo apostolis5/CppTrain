@@ -18,10 +18,10 @@ TEST_CASE("ATM and BankInternalSystem integration scenario", "[ATM_Integration]"
     string account1 = internal_system.create_account("1001", "Customer A", 500);
     REQUIRE(account1 == "200 OK");
     REQUIRE(internal_system.get_account_for_customer("1001") != nullptr);
-    REQUIRE(internal_system.get_balance_for_customer("1001") == 500);
+    REQUIRE(internal_system.get_balance_for_accountID("1001") == 500);
 
     string account2 = internal_system.create_account("1002", "Customer B", 200);
-    REQUIRE(internal_system.get_balance_for_customer("1002") == 200);
+    REQUIRE(internal_system.get_balance_for_accountID("1002") == 200);
 
 
     // 2. ATM displays account1 balance
@@ -32,7 +32,7 @@ TEST_CASE("ATM and BankInternalSystem integration scenario", "[ATM_Integration]"
     string deposit_message = EuroBankATM.make_deposit("1001", 100);
     REQUIRE(deposit_message == "200 OK"); 
     // We should verify the internal state of the BankInternalSystem to ensure the deposit actually happened.
-    REQUIRE(internal_system.get_balance_for_customer("1001") == 600);
+    REQUIRE(internal_system.get_balance_for_accountID("1001") == 600);
     // 4. ATM displays updated balance account1
     string display_after_deposit = EuroBankATM.display_balance("1001");
     REQUIRE(display_after_deposit == "600");
@@ -50,11 +50,11 @@ TEST_CASE("ATM and BankInternalSystem integration scenario", "[ATM_Integration]"
     REQUIRE(EuroBankATM.display_balance("1002") == "200");
 
     string deposit_message_acc2 = EuroBankATM.make_deposit("1002", 300); 
-    REQUIRE(internal_system.get_balance_for_customer("1002") == 500);
+    REQUIRE(internal_system.get_balance_for_accountID("1002") == 500);
     REQUIRE(EuroBankATM.display_balance("1002") == "500");       
 
     string withdrawal_message_acc2 = EuroBankATM.make_withdrawal("1002", 100);
-    REQUIRE(internal_system.get_balance_for_customer("1002") == 400);
+    REQUIRE(internal_system.get_balance_for_accountID("1002") == 400);
     // 11. ATM displays final balance account2
     REQUIRE(EuroBankATM.display_balance("1002") == "400");  
 

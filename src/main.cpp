@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
         cout << "=====================================\n";
         
         // Dynamically list accounts
-        const vector<BankAccount>& accounts = bankSystem.get_all_accounts();
+        const vector<BankAccount>& accounts = bankSystem.get_all_accountsData();
         for (const BankAccount& account : accounts) {
             cout << "  - Account ID: " << account.get_accountId() 
                  << " (" << account.get_accountUsername() << ")\n";

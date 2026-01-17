@@ -1,3 +1,4 @@
+// Internal Banking System Core Business Logic 
 #include "bank_internal_system.h"
 #include <iostream>
 #include <sstream> 
@@ -6,9 +7,9 @@
 #include <vector> 
 using namespace std;
 
-// Helper to find an account by ID internally
-BankAccount* BankInternalSystem::find_account_by_id_internal(const string& accountId) {
-    for (auto& account : all_bank_accounts) {
+// Returns an account searched by ID internally
+BankAccount* BankInternalSystem::find_account(const string& accountId) {
+    for (auto& account : bankAccountsDB) {
         if (account.get_accountId() == accountId) {
             return &account;
         }
@@ -18,30 +19,32 @@ BankAccount* BankInternalSystem::find_account_by_id_internal(const string& accou
 
 // Clerk functionalities
 string BankInternalSystem::create_account(const string& id, const string& username, int initial_balance) {
-    if (find_account_by_id_internal(id) != nullptr) {
+    if (find_account(id) != nullptr) {
         return "Error";
     }
-    all_bank_accounts.emplace_back(id, username, initial_balance);
+    bankAccountsDB.emplace_back(id, username, initial_balance);
+    // Alternatively:
+    //bankAccountsDB.push_back(BankAccount(id, username, initial_balance));
     return "200 OK";
 }
 
-string BankInternalSystem::delete_account_by_id(const string& accountId) {
-    for (auto it = all_bank_accounts.begin(); it != all_bank_accounts.end(); ++it) {
+string BankInternalSystem::delete_accountID(const string& accountId) {
+    for (auto it = bankAccountsDB.begin(); it != bankAccountsDB.end(); ++it) {
         if (it->get_accountId() == accountId) {
-            it = all_bank_accounts.erase(it);
+            it = bankAccountsDB.erase(it);
             return "200 OK";
         }
     }
     return "Error";
 }
 
-// Customer-facing functionalities (delegated from ATM)
+
 BankAccount* BankInternalSystem::get_account_for_customer(const string& accountId) {
-    return find_account_by_id_internal(accountId);
+    return find_account(accountId);
 }
 
 string BankInternalSystem::deposit_to_account(const string& accountId, int amount) {
-    BankAccount* account = find_account_by_id_internal(accountId);
+    BankAccount* account = find_account(accountId);
     if (account) {
         account->deposit(amount);
         return "200 OK";
@@ -51,7 +54,7 @@ string BankInternalSystem::deposit_to_account(const string& accountId, int amoun
 }
 
 string BankInternalSystem::withdraw_from_account(const string& accountId, int amount) {
-    BankAccount* account = find_account_by_id_internal(accountId);
+    BankAccount* account = find_account(accountId);
     if (account) {
         try {
             account->withdraw(amount);
@@ -64,14 +67,14 @@ string BankInternalSystem::withdraw_from_account(const string& accountId, int am
     }
 }
 
-int BankInternalSystem::get_balance_for_customer(const string& accountId) {
-    BankAccount* account = find_account_by_id_internal(accountId);
+int BankInternalSystem::get_balance_for_accountID(const string& accountId) {
+    BankAccount* account = find_account(accountId);
     if (account) {
         return account->get_balance();
     }
     return -1; 
 }
 
-const vector<BankAccount>& BankInternalSystem::get_all_accounts() const {
-    return all_bank_accounts;
+const vector<BankAccount>& BankInternalSystem::get_all_accountsData() const {
+    return bankAccountsDB; // returns the internal vector
 }

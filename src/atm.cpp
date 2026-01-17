@@ -9,7 +9,7 @@ using namespace std;
 ATM::ATM(BankInternalSystem& system) : bank_system(system) {};
 
 string ATM::display_balance(const string& accountId) {
-    optional<int> balance = bank_system.get_balance_for_customer(accountId); 
+    optional<int> balance = bank_system.get_balance_for_accountID(accountId); 
     if (balance.has_value()) 
     
     return to_string(balance.value()); 
