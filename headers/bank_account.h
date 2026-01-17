@@ -4,6 +4,9 @@
 #include<string> 
 using namespace std;
 
+// Forward declaration to break circular dependency
+class BankInternalSystem;
+
 class BankAccount
 {
 private:
@@ -14,6 +17,9 @@ private:
 public:
     // Constructor to initialize all details of a bank account
     BankAccount(string accountId, string accountUsername, int initial_balance);
+
+    // Method to register this account with the banking system
+    string register_to_system(BankInternalSystem& system);
 
     // Getter methods
     string get_accountId() const;

@@ -2,7 +2,8 @@
 #include "catch.hpp"
 #include <iostream>
 #include <string>
-#include <limits> // Required for numeric_limits
+#include <vector>
+#include <limits>
 #include "bank_internal_system.h" 
 #include "atm.h"                  
 using namespace std;
@@ -17,14 +18,19 @@ int main(int argc, char* argv[]) {
 
     cout << "\n***************************Banking System Initialized***************************\n";
 
-    // Initialize and link BankInternalSystem with ATM
+    // Initialize bank system
     BankInternalSystem bankSystem;
     ATM piraeusAtm(bankSystem);
 
-    // Create accounts within the banking system
-    bankSystem.create_account("001", "work_account", 5000);
-    bankSystem.create_account("002", "personal_account", 3000);
-    bankSystem.create_account("***", "new account", 10);
+    BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
+    BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
+    BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
+    
+    acc1->register_to_system(bankSystem);
+    acc2->register_to_system(bankSystem);
+    acc3->register_to_system(bankSystem);
+
+    cout << "Acc2 balance :" << acc2->get_balance() <<  endl;    
     
     cout << "Welcome to the Piraeus Bank ATM!\n";
 
@@ -70,15 +76,22 @@ int main(int argc, char* argv[]) {
             int choice;
             cin >> choice;
 
+            if (cin.fail()) {
+                cout << "Invalid input. Please enter a number.\n";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                continue;
+            }
+
             int amount;
             string response;
 
             switch (choice) {
-                case 1: // Display Balance
+                case 1:
                     response = piraeusAtm.display_balance(selectedAccountId);
                     cout << "Current Balance: " << response << endl;
                     break;
-                case 2: // Deposit
+                case 2:
                     cout << "Enter amount to deposit: ";
                     cin >> amount;
                     response = piraeusAtm.make_deposit(selectedAccountId, amount);
@@ -89,7 +102,7 @@ int main(int argc, char* argv[]) {
                         cout << "Deposit failed: " << response << endl;
                     }
                     break;
-                case 3: // Withdraw
+                case 3:
                     cout << "Enter amount to withdraw: ";
                     cin >> amount;
                     response = piraeusAtm.make_withdrawal(selectedAccountId, amount);
@@ -100,12 +113,16 @@ int main(int argc, char* argv[]) {
                         cout << "Withdrawal failed: " << response << endl;
                     }
                     break;
-                case 4: // Choose a different account
+                case 4:
                     accountMenu = false;
                     break;
-                case 5: // Exit ATM
+                case 5:
                     cout << "Thank you for using the ATM Banking System. Goodbye!\n";
-                    return 0; // Exit the program
+                    // Clean up dynamically allocated memory before exiting
+                    delete acc1;
+                    delete acc2;
+                    delete acc3;
+                    return 0; 
                 default:
                     cout << "Invalid choice. Please try again.\n";
                     break;
@@ -113,6 +130,10 @@ int main(int argc, char* argv[]) {
         }
     }    
 
+    // Clean up dynamically allocated memory before exiting
+    delete acc1;
+    delete acc2;
+    delete acc3;
     cout << "Thank you for using the ATM Banking System. Goodbye!\n";
     return 0;
 }

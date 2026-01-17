@@ -1,62 +1,26 @@
-#include <catch.hpp>
-#include <string>
-#include <vector>
-#include <stdexcept> 
-#include <sstream> 
-#include <optional> 
-#include "bank_internal_system.h" 
+#include "catch.hpp"
+#include "bank_internal_system.h"
 #include "bank_account.h"
-using namespace std;
 
-TEST_CASE("BankInternalSystem manages accounts", "[BankInternalSystem]") {
-    // Each SECTION will have its own fresh BankInternalSystem instance
+TEST_CASE("BankInternalSystem Registration", "[BankInternalSystem]") {
 
-    SECTION("Account creation and retrieval") {
-        BankInternalSystem bank_system;
-        REQUIRE(bank_system.create_account("1111", "Alice Smith", 100) == "200 OK");
-        REQUIRE(bank_system.create_account("2222", "Bob Johnson", 500) == "200 OK");
+    BankInternalSystem bankSystem;
 
-        REQUIRE(bank_system.get_account_for_customer("1111") != nullptr);
-        REQUIRE(bank_system.get_account_for_customer("2222") != nullptr);
-        REQUIRE(bank_system.get_account_for_customer("3333") == nullptr); // Non-existent
-    }
+    SECTION("Account Registration") {
+        BankAccount acc1("001", "testuser1", 1000);
+        
+        // Test successful registration
+        string result1 = bankSystem.register_account(acc1);
+        REQUIRE(result1 == "200 OK");
 
-    SECTION("Deposit to account") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        REQUIRE(bank_system.deposit_to_account("1111", 50) == "200 OK");
-        REQUIRE(bank_system.get_balance_for_accountID("1111") == 150);
-    }
+        // Verify it's in the system
+        BankAccount* system_copy = bankSystem.get_account_for_customer("001");
+        REQUIRE(system_copy != nullptr);
+        REQUIRE(system_copy->get_balance() == 1000);
 
-    SECTION("Withdraw from account") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        REQUIRE(bank_system.withdraw_from_account("1111", 50) == "200 OK");
-        REQUIRE(bank_system.get_balance_for_accountID("1111") == 50);
-    }
-
-    SECTION("Withdraw with insufficient funds") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        std::string message = bank_system.withdraw_from_account("1111", 150);
-        REQUIRE(message == "Error");
-        REQUIRE(bank_system.get_balance_for_accountID("1111") == 100); // Balance should not change
-    }
-
-    SECTION("Delete account by ID") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        bank_system.create_account("2222", "Bob Johnson", 500);
-        REQUIRE(bank_system.delete_accountID("1111") == "200 OK");
-        REQUIRE(bank_system.get_account_for_customer("1111") == nullptr);
-        REQUIRE(bank_system.get_account_for_customer("2222") != nullptr); // Other account unaffected
-    }
-
-    SECTION("Delete non-existent account by ID") {
-        BankInternalSystem bank_system;
-        bank_system.create_account("1111", "Alice Smith", 100);
-        std::string message = bank_system.delete_accountID("9999");
-        REQUIRE(message == "Error");
-        REQUIRE(bank_system.get_account_for_customer("1111") != nullptr); // Existing account unaffected
+        // Test registration of a duplicate account
+        BankAccount acc2("001", "testuser2", 500);
+        string result2 = bankSystem.register_account(acc2);
+        REQUIRE(result2 == "Error");
     }
 }

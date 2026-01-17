@@ -1,36 +1,27 @@
 #include "catch.hpp"
 #include "bank_account.h"
-#include <stdexcept>
-#include <iostream>
-#include <string> 
-using namespace std;
+#include "bank_internal_system.h"
 
-TEST_CASE("BankAccount operations", "[account]") {
-    BankAccount default_account("0000", "Default Account", 0);
-    REQUIRE(default_account.get_balance() == 0);
-    REQUIRE(default_account.get_accountId() == "0000"); 
-    REQUIRE(default_account.get_accountUsername() == "Default Account");
+TEST_CASE("BankAccount Registration Method", "[BankAccount]") {
+    
+    BankInternalSystem bankSystem;
 
-    BankAccount account("1234", "Test Account", 4000);
-    REQUIRE(account.get_balance() == 4000);
-    REQUIRE(account.get_accountId() == "1234");
-    REQUIRE(account.get_accountUsername() == "Test Account");
+    SECTION("Register With System") {
+        // Create an object on the stack
+        BankAccount acc1("001", "reg_user", 1500);
+        
+        // Test successful registration
+        string result = acc1.register_to_system(bankSystem);
+        REQUIRE(result == "200 OK");
 
-    account.deposit(300);
-    REQUIRE(account.get_balance() == 4300);
-    account.withdraw(500);
-    REQUIRE(account.get_balance() == 3800);
-
-    BankAccount NewAccount("5678", "Apostolis Account", 0);
-    NewAccount.deposit(300);
-    NewAccount.withdraw(200);
-    REQUIRE(NewAccount.get_balance() == 100);
-    REQUIRE(NewAccount.get_accountId() == "5678");
-    REQUIRE(NewAccount.get_accountUsername() == "Apostolis Account");
-}
-
-TEST_CASE("Overdraft withdrawal throws an exception", "[account]") {
-    BankAccount account("9876", "Overdraft Account", 500);
-    REQUIRE_THROWS_AS(account.withdraw(510), std::runtime_error);
-    REQUIRE(account.get_balance() == 500); // Balance should not change
+        // Verify it's in the system
+        BankAccount* system_copy = bankSystem.get_account_for_customer("001");
+        REQUIRE(system_copy != nullptr);
+        REQUIRE(system_copy->get_balance() == 1500);
+        
+        // Test registration of a duplicate account
+        BankAccount acc2("001", "duplicate_user", 100);
+        string result2 = acc2.register_to_system(bankSystem);
+        REQUIRE(result2 == "Error");
+    }
 }

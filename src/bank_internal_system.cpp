@@ -17,32 +17,26 @@ BankAccount* BankInternalSystem::find_account(const string& accountId) {
     return nullptr;
 }
 
-// Clerk functionalities
-string BankInternalSystem::create_account(const string& id, const string& username, int initial_balance) {
-    if (find_account(id) != nullptr) {
+// Register a new account into the internal banking system
+string BankInternalSystem::register_account(BankAccount new_account) {
+    if (find_account(new_account.get_accountId()) != nullptr) {
         return "Error";
     }
-    bankAccountsDB.emplace_back(id, username, initial_balance);
-    // Alternatively:
-    //bankAccountsDB.push_back(BankAccount(id, username, initial_balance));
+    bankAccountsDB.push_back(new_account);
     return "200 OK";
 }
-
-string BankInternalSystem::delete_accountID(const string& accountId) {
-    for (auto it = bankAccountsDB.begin(); it != bankAccountsDB.end(); ++it) {
-        if (it->get_accountId() == accountId) {
-            it = bankAccountsDB.erase(it);
-            return "200 OK";
-        }
-    }
-    return "Error";
-}
-
 
 BankAccount* BankInternalSystem::get_account_for_customer(const string& accountId) {
     return find_account(accountId);
 }
 
+const vector<BankAccount>& BankInternalSystem::get_all_accountsData() const {
+    return bankAccountsDB; // returns the internal vector
+}
+
+
+// Below functions are customer-related operations used from ATM (ATM and internal system are connected)
+// Also a bank clerk can use these functions to access an account through the internal bank system additionally
 string BankInternalSystem::deposit_to_account(const string& accountId, int amount) {
     BankAccount* account = find_account(accountId);
     if (account) {
@@ -73,8 +67,4 @@ int BankInternalSystem::get_balance_for_accountID(const string& accountId) {
         return account->get_balance();
     }
     return -1; 
-}
-
-const vector<BankAccount>& BankInternalSystem::get_all_accountsData() const {
-    return bankAccountsDB; // returns the internal vector
 }

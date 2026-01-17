@@ -16,11 +16,9 @@ public:
     BankInternalSystem() = default;
 
     // Clerk functionalities
-    string create_account(const string& id, const string& username, int initial_balance);
-    string delete_accountID(const string& accountId);
+    string register_account(BankAccount new_account);
 
-
-    // Customer-facing functionalities (delegated from ATM)
+    // Account functionalities the system has (delegated from ATM)
     BankAccount* get_account_for_customer(const string& accountId); 
     string deposit_to_account(const string& accountId, int amount);
     string withdraw_from_account(const string& accountId, int amount);
