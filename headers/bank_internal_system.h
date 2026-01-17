@@ -25,4 +25,7 @@ public:
     string deposit_to_account(const string& accountId, int amount);
     string withdraw_from_account(const string& accountId, int amount);
     int get_balance_for_customer(const string& accountId); 
+
+    // Method to get all accounts for display
+    const vector<BankAccount>& get_all_accounts() const;
 };

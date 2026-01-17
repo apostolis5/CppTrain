@@ -72,4 +72,6 @@ int BankInternalSystem::get_balance_for_customer(const string& accountId) {
     return -1; 
 }
 
-
+const vector<BankAccount>& BankInternalSystem::get_all_accounts() const {
+    return all_bank_accounts;
+}
