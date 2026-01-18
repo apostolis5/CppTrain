@@ -28,6 +28,18 @@ string BankInternalSystem::register_account(BankAccount new_account) {
 }
 
 // Edit and Delete Account Methods    
+string BankInternalSystem::edit_account_username(const string& accountId, const string& new_username) {
+    BankAccount* account = find_account(accountId);
+    if (account == nullptr) {
+        return "Error";
+    }
+    // edit account username 
+    account->set_accountUsername(new_username);
+    // save edited account back to DB
+    register_account(*account);
+    return "200 OK";    
+}
+
 string BankInternalSystem::delete_account(const string& accountId) {
     BankAccount* deletedAccount = find_account(accountId);
     if (deletedAccount == nullptr) {
@@ -41,10 +53,6 @@ string BankInternalSystem::delete_account(const string& accountId) {
         }), bankAccountsDB.end());
     return "200 OK";
 }
-
-
-
-
 
 
 BankAccount* BankInternalSystem::get_account_for_customer(const string& accountId) {

@@ -50,5 +50,14 @@ TEST_CASE("BankInternalSystem Registration", "[BankInternalSystem]") {
         REQUIRE(bankSystem.get_all_accountsData().size() == 2);
         REQUIRE(bankSystem.get_balance_for_accountID(accountId) == -1);
 
+        // Tests for edit acc2 username
+        //string id2 = acc2->get_accountId();
+        string new_username = "Personal Account";
+        bankSystem.edit_account_username(id2, new_username);
+        REQUIRE(bankSystem.get_account_for_customer(id2)->get_accountUsername() == new_username);
+        // acc2 balance should remain unchanged
+        REQUIRE(bankSystem.get_balance_for_accountID(id2) == 4000);
+
+     
     }
 }

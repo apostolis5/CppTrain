@@ -24,6 +24,7 @@ public:
     
     // Declare Edit and Delete Account Methods
     string delete_account(const string& accountId);
+    string edit_account_username(const string& accountId, const string& new_username);
 
     // Method to get all accounts for display
     const vector<BankAccount>& get_all_accountsData() const;

@@ -24,18 +24,10 @@ string BankAccount::get_accountUsername() const {
 int BankAccount::get_balance() const {
     return balance;
 }
-// Setters (for Edit Account functionality)
-
-
-
-
-
-
-
-
-
-
-
+// Setters
+void BankAccount::set_accountUsername(const string& new_username) {
+    accountUsername = new_username;
+}
 
 // Account transaction methods
 void BankAccount::deposit(int amount) {

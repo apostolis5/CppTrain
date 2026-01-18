@@ -27,13 +27,8 @@ public:
     int get_balance() const;
 
     // Setters
-
+    void set_accountUsername(const string& new_username);
     
-
-
-
-
-
     // Transaction methods
     void deposit(int amount);
     void withdraw(int amount);
