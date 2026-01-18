@@ -18,9 +18,6 @@ public:
     // Constructor to initialize all details of a bank account
     BankAccount(string accountId, string accountUsername, int initial_balance);
 
-    // Method to register this account with the banking system
-    string register_to_system(BankInternalSystem& system);
-
     // Getters
     string get_accountId() const;
     string get_accountUsername() const;
