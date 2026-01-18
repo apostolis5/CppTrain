@@ -30,7 +30,7 @@ TEST_CASE("BankInternalSystem Registration", "[BankInternalSystem]") {
         BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
         BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
         BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
-        // make accounts available both in the banking system 
+        // make accounts available in the banking system 
         acc1->register_to_system(bankSystem);
         acc2->register_to_system(bankSystem);
         acc3->register_to_system(bankSystem);
@@ -42,5 +42,13 @@ TEST_CASE("BankInternalSystem Registration", "[BankInternalSystem]") {
         cout << "Balance after deposit: " << bankSystem.get_balance_for_accountID(id2) << endl;
         bankSystem.withdraw_from_account(id2, 1000);
         REQUIRE(bankSystem.get_balance_for_accountID(id2) == 4000);
+        // Tests for delete acc3
+        string accountId = acc3->get_accountId();
+        bankSystem.delete_account(accountId);
+        
+        REQUIRE(bankSystem.get_account_for_customer(accountId) == nullptr);
+        REQUIRE(bankSystem.get_all_accountsData().size() == 2);
+        REQUIRE(bankSystem.get_balance_for_accountID(accountId) == -1);
+
     }
 }

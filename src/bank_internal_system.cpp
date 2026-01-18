@@ -5,6 +5,7 @@
 #include <string>
 #include <optional>
 #include <vector> 
+#include <algorithm>
 using namespace std;
 
 // Returns an account searched by ID internally
@@ -26,8 +27,20 @@ string BankInternalSystem::register_account(BankAccount new_account) {
     return "200 OK";
 }
 
-// Implement Edit and Delete Account Methods    
-
+// Edit and Delete Account Methods    
+string BankInternalSystem::delete_account(const string& accountId) {
+    BankAccount* deletedAccount = find_account(accountId);
+    if (deletedAccount == nullptr) {
+        return "Error";
+    }
+    // if accountId found 
+    bankAccountsDB.erase(std::remove_if(bankAccountsDB.begin(), bankAccountsDB.end(),
+        [&](const BankAccount& a) {
+            
+            return a.get_accountId() == accountId;
+        }), bankAccountsDB.end());
+    return "200 OK";
+}
 
 
 

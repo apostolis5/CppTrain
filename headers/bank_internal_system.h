@@ -23,6 +23,7 @@ public:
     int get_balance_for_accountID(const string& accountId);
     
     // Declare Edit and Delete Account Methods
+    string delete_account(const string& accountId);
 
     // Method to get all accounts for display
     const vector<BankAccount>& get_all_accountsData() const;
