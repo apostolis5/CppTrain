@@ -2,17 +2,11 @@
 #include "bank_account.h"
 #include "bank_internal_system.h" 
 #include <stdexcept> 
-using namespace std;
 #include <string>
 
 // Constructor with member initializer list
 BankAccount::BankAccount(string id, string username, int initial_balance) : 
                         accountId(id), accountUsername(username), balance(initial_balance) {}
-
-// --- Connect Account to Internal System ---
-string BankAccount::register_to_system(BankInternalSystem& system) {
-    return system.register_account(*this);
-}
 
 // Getters
 string BankAccount::get_accountId() const {

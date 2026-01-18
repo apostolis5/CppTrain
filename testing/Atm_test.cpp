@@ -2,6 +2,7 @@
 #include "atm.h"
 #include "bank_account.h"
 #include "bank_internal_system.h"
+#include <memory>
 
 TEST_CASE("ATM Final Tests", "[ATM]") {
 
@@ -10,11 +11,11 @@ TEST_CASE("ATM Final Tests", "[ATM]") {
 
     SECTION("ATM transactions") {
         // Create and register accounts for testing
-        BankAccount acc1("1001", "Customer A", 500);
-        acc1.register_to_system(internal_system);
+        auto acc1 = make_shared<BankAccount>("1001", "Customer A", 500);
+        internal_system.register_account(acc1);
 
-        BankAccount acc2("1002", "Customer B", 200);
-        acc2.register_to_system(internal_system);
+        auto acc2 = make_shared<BankAccount>("1002", "Customer B", 200);
+        internal_system.register_account(acc2);
 
         // Test display_balance
         REQUIRE(atm.display_balance("1001") == "500");
@@ -33,23 +34,22 @@ TEST_CASE("ATM Final Tests", "[ATM]") {
         SECTION("ATM multiple accounts transactions") {
             // Initialize bank system
             BankInternalSystem bankSystem;
-            ATM* piraeusAtm = new ATM(bankSystem);
-            //ATM piraeusAtm(bankSystem);
+            auto piraeusAtm = make_unique<ATM>(bankSystem);
 
-            BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
-            BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
-            BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
+            auto acc1 = make_shared<BankAccount>("001", "work_account", 5000);
+            auto acc2 = make_shared<BankAccount>("002", "personal_account", 3000);
+            auto acc3 = make_shared<BankAccount>("003", "savings_account", 10000);
             // make accounts available both in the banking system and atm
-            acc1->register_to_system(bankSystem);
-            acc2->register_to_system(bankSystem);
-            acc3->register_to_system(bankSystem);
+            bankSystem.register_account(acc1);
+            bankSystem.register_account(acc2);
+            bankSystem.register_account(acc3);
 
 
             // Modify Accounts through ATM Interface
             string id3 = acc3->get_accountId();   
             piraeusAtm->make_deposit(id3, 2000);
             piraeusAtm->make_withdrawal(id3, 1000);
-            cout << "Balance after ATM operations: " << piraeusAtm->display_balance(id3) << endl;
+            //std::cout << "Balance after ATM operations: " << piraeusAtm->display_balance(id3) << std::endl;
             REQUIRE(piraeusAtm->display_balance(id3) == "11000");
         }
 }

@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 #include <limits>
+#include <memory>
 #include "bank_internal_system.h" 
 #include "atm.h"                  
-using namespace std;
 
 int main(int argc, char* argv[]) {
     // Run Catch2 tests first
@@ -20,18 +20,17 @@ int main(int argc, char* argv[]) {
 
     // Initialize bank system
     BankInternalSystem bankSystem;
-    ATM* piraeusAtm = new ATM(bankSystem);
-    //ATM piraeusAtm(bankSystem);
+    auto piraeusAtm = make_unique<ATM>(bankSystem);
 
-    BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
-    BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
-    BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
-    // make accounts available both in the banking system and atm
-    acc1->register_to_system(bankSystem);
-    acc2->register_to_system(bankSystem);
-    acc3->register_to_system(bankSystem);
+    auto acc1 = make_shared<BankAccount>("001", "work_account", 5000);
+    auto acc2 = make_shared<BankAccount>("002", "personal_account", 3000);
+    auto acc3 = make_shared<BankAccount>("003", "savings_account", 10000);
+    // make accounts available in the banking system
+    bankSystem.register_account(acc1);
+    bankSystem.register_account(acc2);
+    bankSystem.register_account(acc3);
 
-        cout << "Welcome to the Piraeus Bank ATM!\n";
+    cout << "Welcome to the Piraeus Bank ATM!\n";
 
     string selectedAccountId;
 
@@ -41,10 +40,10 @@ int main(int argc, char* argv[]) {
         cout << "=====================================\n";
         
         // Dynamically list accounts
-        const vector<BankAccount>& accounts = bankSystem.get_all_accountsData();
-        for (const BankAccount& account : accounts) {
-            cout << "  - Account ID: " << account.get_accountId() 
-                 << " (" << account.get_accountUsername() << ")\n";
+        const auto& accounts = bankSystem.get_all_accountsData();
+        for (const auto& account : accounts) {
+            cout << "  - Account ID: " << account->get_accountId() 
+                 << " (" << account->get_accountUsername() << ")\n";
         }
         
         cout << "-------------------------------------\n";
@@ -117,30 +116,14 @@ int main(int argc, char* argv[]) {
                     break;
                 case 5:
                     cout << "Thank you for using the ATM Banking System. Goodbye!\n";
-                    // Clean up dynamically allocated memory before exiting
-                    delete acc1;
-                    delete acc2;
-                    delete acc3;
                     return 0; 
                 default:
                     cout << "Invalid choice. Please try again.\n";
                     break;
             }
         }
-    }  
+    }
 
-
-
-
-
-
-
-
-    // Clean up dynamically allocated memory before exiting
-    delete acc1;
-    delete acc2;
-    delete acc3;
-    delete piraeusAtm;
-    cout << "\n\n\nThank you for using the ATM Banking System. Goodbye!\n\n\n";
+    std::cout << "\n\n\nThank you for using the ATM Banking System. Goodbye!\n\n\n";
     return 0;
 }

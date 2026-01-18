@@ -1,31 +1,18 @@
 #include "catch.hpp"
 #include "bank_account.h"
 #include "bank_internal_system.h"
+#include <memory>
 
-TEST_CASE("BankAccount Registration Method", "[BankAccount]") {
+TEST_CASE("BankAccount Getters and Setters", "[BankAccount]") {
     
-    BankInternalSystem bankSystem;
-
-    SECTION("Register With System") {
-        // Create an object on the stack
-        BankAccount acc1("001", "reg_user", 1500);
+    SECTION("Getters and Setters") {
+        auto acc1 = make_shared<BankAccount>("001", "test_user", 1500);
         
-        // Test successful registration
-        string result = acc1.register_to_system(bankSystem);
-        REQUIRE(result == "200 OK");
+        REQUIRE(acc1->get_accountId() == "001");
+        REQUIRE(acc1->get_accountUsername() == "test_user");
+        REQUIRE(acc1->get_balance() == 1500);
 
-        // Verify it's in the system
-        BankAccount* system_copy = bankSystem.get_account_for_customer("001");
-        REQUIRE(system_copy != nullptr);
-        REQUIRE(system_copy->get_balance() == 1500);
-        
-        // Test registration of a duplicate account
-        BankAccount acc2("001", "duplicate_user", 100);
-        string result2 = acc2.register_to_system(bankSystem);
-        REQUIRE(result2 == "Error");
-
-        // Edit and delete bank account
-
-        
+        acc1->set_accountUsername("new_user");
+        REQUIRE(acc1->get_accountUsername() == "new_user");
     }
 }
