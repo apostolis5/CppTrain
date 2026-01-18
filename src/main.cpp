@@ -20,16 +20,15 @@ int main(int argc, char* argv[]) {
 
     // Initialize bank system
     BankInternalSystem bankSystem;
-    auto piraeusAtm = make_unique<ATM>(bankSystem);
+    ATM* piraeusAtm = new ATM(bankSystem); 
 
-    auto acc1 = make_shared<BankAccount>("001", "work_account", 5000);
-    auto acc2 = make_shared<BankAccount>("002", "personal_account", 3000);
-    auto acc3 = make_shared<BankAccount>("003", "savings_account", 10000);
+    BankAccount* acc1 = new BankAccount("001", "work_account", 5000);
+    BankAccount* acc2 = new BankAccount("002", "personal_account", 3000);
+    BankAccount* acc3 = new BankAccount("003", "savings_account", 10000);
     // make accounts available in the banking system
-    bankSystem.register_account(acc1);
-    bankSystem.register_account(acc2);
-    bankSystem.register_account(acc3);
-
+    bankSystem.register_account(shared_ptr<BankAccount>(acc1));
+    bankSystem.register_account(shared_ptr<BankAccount>(acc2));
+    bankSystem.register_account(shared_ptr<BankAccount>(acc3));
     cout << "Welcome to the Piraeus Bank ATM!\n";
 
     string selectedAccountId;
