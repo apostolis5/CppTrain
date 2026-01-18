@@ -13,7 +13,7 @@ TEST_CASE("BankInternalSystem Registration", "[BankInternalSystem]") {
         bankSystem.register_account(shared_ptr<BankAccount>(acc1));
 
         // Verify it's in the system
-        auto system_copy = bankSystem.get_account_for_customer("001");
+        shared_ptr<BankAccount> system_copy = bankSystem.get_account_for_customer("001");
         REQUIRE(system_copy != nullptr);
         REQUIRE(bankSystem.get_balance_for_accountID("001") == 1000);
 

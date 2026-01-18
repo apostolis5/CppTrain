@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
         cout << "=====================================\n";
         
         // Dynamically list accounts
-        const auto& accounts = bankSystem.get_all_accountsData();
+        const vector<shared_ptr<BankAccount>>& accounts = bankSystem.get_all_accountsData();
         for (const auto& account : accounts) {
             cout << "  - Account ID: " << account->get_accountId() 
                  << " (" << account->get_accountUsername() << ")\n";

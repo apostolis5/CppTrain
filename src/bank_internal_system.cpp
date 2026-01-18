@@ -11,7 +11,7 @@ using namespace std;
 
 // Returns an account searched by ID internally
 shared_ptr<BankAccount> BankInternalSystem::find_account(const string& accountId) {
-    for (auto& account : bankAccountsDB) {
+    for (shared_ptr<BankAccount>& account : bankAccountsDB) {
         if (account->get_accountId() == accountId) {
             return account;
         }
@@ -30,7 +30,7 @@ string BankInternalSystem::register_account(shared_ptr<BankAccount> new_account)
 
 // Edit and Delete Account Methods    
 string BankInternalSystem::edit_account_username(const string& accountId, const string& new_username) {
-    auto account = find_account(accountId);
+    shared_ptr<BankAccount> account = find_account(accountId);
     if (account == nullptr) {
         return "Error";
     }
@@ -40,7 +40,7 @@ string BankInternalSystem::edit_account_username(const string& accountId, const 
 }
 
 string BankInternalSystem::delete_account(const string& accountId) {
-    auto deletedAccount = find_account(accountId);
+    shared_ptr<BankAccount> deletedAccount = find_account(accountId);
     if (deletedAccount == nullptr) {
         return "Error";
     }
@@ -66,7 +66,7 @@ const vector<shared_ptr<BankAccount>>& BankInternalSystem::get_all_accountsData(
 // Below functions are customer-related operations used from ATM (ATM and internal system are connected)
 // Also a bank clerk can use these functions to access an account through the internal bank system additionally
 string BankInternalSystem::deposit_to_account(const string& accountId, int amount) {
-    auto account = find_account(accountId);
+    shared_ptr<BankAccount> account = find_account(accountId);
     if (account) {
         account->deposit(amount);
         return "200 OK";
@@ -76,7 +76,7 @@ string BankInternalSystem::deposit_to_account(const string& accountId, int amoun
 }
 
 string BankInternalSystem::withdraw_from_account(const string& accountId, int amount) {
-    auto account = find_account(accountId);
+    shared_ptr<BankAccount> account = find_account(accountId);
     if (account) {
         try {
             account->withdraw(amount);
@@ -90,7 +90,7 @@ string BankInternalSystem::withdraw_from_account(const string& accountId, int am
 }
 
 int BankInternalSystem::get_balance_for_accountID(const string& accountId) {
-    auto account = find_account(accountId);
+    shared_ptr<BankAccount> account = find_account(accountId);
     if (account) {
         return account->get_balance();
     }
