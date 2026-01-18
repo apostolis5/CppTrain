@@ -5,7 +5,7 @@
 #include <string> 
 using namespace std;
 
-// Constructor definition
+// Constructor 
 ATM::ATM(BankInternalSystem& system) : bank_system(system) {};
 
 string ATM::display_balance(const string& accountId) {

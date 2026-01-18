@@ -23,5 +23,9 @@ TEST_CASE("BankAccount Registration Method", "[BankAccount]") {
         BankAccount acc2("001", "duplicate_user", 100);
         string result2 = acc2.register_to_system(bankSystem);
         REQUIRE(result2 == "Error");
+
+        // Edit and delete bank account
+
+        
     }
 }

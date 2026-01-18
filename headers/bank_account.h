@@ -21,10 +21,18 @@ public:
     // Method to register this account with the banking system
     string register_to_system(BankInternalSystem& system);
 
-    // Getter methods
+    // Getters
     string get_accountId() const;
     string get_accountUsername() const;
     int get_balance() const;
+
+    // Setters
+
+    
+
+
+
+
 
     // Transaction methods
     void deposit(int amount);

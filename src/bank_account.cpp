@@ -5,7 +5,7 @@
 using namespace std;
 #include <string>
 
-// Constructor definition with member initializer list
+// Constructor with member initializer list
 BankAccount::BankAccount(string id, string username, int initial_balance) : 
                         accountId(id), accountUsername(username), balance(initial_balance) {}
 
@@ -14,7 +14,7 @@ string BankAccount::register_to_system(BankInternalSystem& system) {
     return system.register_account(*this);
 }
 
-// Getter definitions
+// Getters
 string BankAccount::get_accountId() const {
     return accountId;
 }
@@ -24,6 +24,18 @@ string BankAccount::get_accountUsername() const {
 int BankAccount::get_balance() const {
     return balance;
 }
+// Setters (for Edit Account functionality)
+
+
+
+
+
+
+
+
+
+
+
 
 // Account transaction methods
 void BankAccount::deposit(int amount) {
